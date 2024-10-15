@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     );
     const text = await response.text();
     const imageList = text.match(
-      /https:\/\/img\d.baidu.com\/it\/u=\d+,\d+&fm=\d+/g
+      /https:\/\/img\d.baidu.com\/it\/u=\d+,\d+&fm=\d*/g
     );
     return new NextResponse(JSON.stringify(imageList), {
       headers: {
