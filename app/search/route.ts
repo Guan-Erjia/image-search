@@ -4,12 +4,13 @@ export async function GET(request: NextRequest) {
   const query = request.nextUrl.searchParams.get("q");
   try {
     const response = await fetch(
-      `https://www.google.com.hk/search?q=${query}&udm=2`
+      `https://image.baidu.com/search/index?tn=baiduimage&word=${query}`
     );
     const text = await response.text();
-    const imageList = text.match(/<img[^>]*>/g);
-    const srcList = imageList?.map((img) => img.match(/src="([^"]+)"/)?.[1]);
-    return new NextResponse(JSON.stringify(srcList.slice(1)), {
+    const imageList = text.match(
+      /https:\/\/img\d.baidu.com\/it\/u=\d+,\d+&fm=\d+/g
+    );
+    return new NextResponse(JSON.stringify(imageList), {
       headers: {
         "content-type": "application/json",
       },
