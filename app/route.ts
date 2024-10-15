@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 export async function GET(request: NextRequest) {
   const query = request.nextUrl.searchParams.get("q");
   try {
@@ -15,6 +15,8 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    return new NextResponse(JSON.stringify([]));
+    if (isDynamicServerError(error)) {
+      throw error;
+    }
   }
 }
