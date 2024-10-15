@@ -1,6 +1,8 @@
 import { useSearchParams } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
 export async function GET(request: NextRequest) {
   const search = useSearchParams();
   const query = search.get("q");
